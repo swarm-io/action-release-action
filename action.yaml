@@ -51,10 +51,9 @@ runs:
         token: ${{ inputs.token }}
     - shell: bash
       run: |
-        echo "release json: ${{ inputs.releaserc-json }}
-    - shell: bash
-      run: |
-        echo "${{ inputs.releaserc-json }}" >> .releaserc.json
+        config="${{ inputs.releaserc-json }}"
+        echo "release json: $config"
+        echo "$config" > .releaserc.json
     - name: Dry run to get next version
       id: semantic-release-dry-run
       uses: cycjimmy/semantic-release-action@v2
