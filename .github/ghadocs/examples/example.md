@@ -1,3 +1,6 @@
+### Example usage to release on PR merge to main
+
+```yaml
 name: Semantic Release
 on:
   pull_request:
@@ -15,3 +18,4 @@ jobs:
       - uses: swarm-io/action-release-action@v1
         with:
           token: ${{ secrets.GIT_RUNNER_TOKEN }}
+```
