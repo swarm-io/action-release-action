@@ -7,7 +7,6 @@ on:
       - main
     paths:
       - action.yaml
-      - '.github/ghadocs/**'
 jobs:
   semantic-release:
     if: github.event.pull_request.merged == true
