@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/swarm-io/action-release-action/compare/v1.0.1...v1.0.2) (2021-12-18)
+
+
+### Bug Fixes
+
+* Docs ([#4](https://github.com/swarm-io/action-release-action/issues/4)) ([5d6cf8f](https://github.com/swarm-io/action-release-action/commit/5d6cf8f8808d70564cc4a383bffbddbdf643f988))
+
 ## [1.0.1](https://github.com/swarm-io/action-release-action/compare/v1.0.0...v1.0.1) (2021-12-18)
 
 
