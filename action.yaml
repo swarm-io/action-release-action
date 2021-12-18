@@ -4,42 +4,6 @@ inputs:
   token:
     description: 'git token to use for the run'
     required: true
-  extra-plugins:
-    description: 'semantic-release extra plugins to install. If you override releaserc-json you may need additional plugins'
-    required: false
-    default: |
-      @semantic-release/exec
-      conventional-changelog-conventionalcommits
-      @semantic-release/changelog
-      @semantic-release/git
-  releaserc-json:
-    description: '.releaserc.json file in string form if you wan to override the default'
-    required: false
-    default: |
-      {
-        "branches": [
-          "main"
-        ],
-        "ci": false,
-        "plugins": [
-          ["@semantic-release/exec", {
-            "prepareCmd": "majorTag=v$(echo ${nextRelease.version} | grep -o '[^-]*$' | cut -d. -f1) && git tag -d $majorTag || true && git push -d origin $majorTag || true && git tag $majorTag"
-          }],
-          ["@semantic-release/commit-analyzer", {
-            "preset":  "conventionalcommits",
-            "releaseRules": [
-              {"scope": "no-release", "release": false}
-            ]
-          }],
-          "@semantic-release/release-notes-generator",
-          "@semantic-release/changelog",
-          ["@semantic-release/git", {
-            "assets": ["CHANGELOG.md", "README.md"],
-            "message": "semantic-release-bot chore(release): ${nextRelease.version} \n\n${nextRelease.notes}"
-          }],
-          "@semantic-release/github"
-        ]
-      }
 runs:
   using: composite
   steps:
@@ -49,16 +13,13 @@ runs:
       with:
         # this makes the semantic-release git plugin push as the runner, which allows us to bypass branch protection
         token: ${{ inputs.token }}
-    - shell: bash
-      run: |
-        echo '${{ inputs.releaserc-json }}' > .releaserc.json
-        cat .releaserc.json
     - name: Dry run to get next version
       id: semantic-release-dry-run
       uses: cycjimmy/semantic-release-action@v2
       with:
         dry_run: true
-        extra_plugins: ${{ inputs.extra-plugins }}
+        extra_plugins: |
+          @swarm-io/release-config-actions
       env:
         # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
         GITHUB_TOKEN: ${{ inputs.token }}
@@ -70,13 +31,11 @@ runs:
         pretty: true
         versioning_enabled: true
         version_override: v${{ steps.semantic-release-dry-run.outputs.new_release_major_version }}
-    - shell: bash
-      run: |
-
     - id: semantic-release
       uses: cycjimmy/semantic-release-action@v2
       with:
-        extra_plugins: ${{ inputs.extra-plugins }}
+        extra_plugins: |
+          @swarm-io/release-config-actions
       env:
         # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
         GITHUB_TOKEN: ${{ inputs.token }}

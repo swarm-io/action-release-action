@@ -1,12 +1,12 @@
 name: Semantic Release
 on:
-#  pull_request:
-#    types:
-#      - closed
-#    branches:
-#      - main
-#    paths:
-#      - action.yaml
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+    paths:
+      - action.yaml
   push:
     branches:
       - main
