@@ -16,3 +16,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: swarm-io/action-release-action@main
+        with:
+          token: ${{ secrets.GIT_RUNNER_TOKEN }}
