@@ -1,2 +1,14 @@
-# action-release-action
-An action to release an action with a tag and v{major} tag, and generate a readme from the action.yaml
+<!-- start title -->
+<!-- end title -->
+<!-- start description -->
+<!-- end description -->
+<!-- start contents -->
+<!-- end contents -->
+<!-- start usage -->
+<!-- end usage -->
+<!-- start inputs -->
+<!-- end inputs -->
+<!-- start outputs -->
+<!-- end outputs -->
+<!-- start [.github/ghdocs/examples/] -->
+<!-- end [.github/ghdocs/examples/] -->
