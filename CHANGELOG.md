@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/swarm-io/action-release-action/compare/v1.0.0...v1.0.1) (2021-12-18)
+
+
+### Bug Fixes
+
+* Trying to automate example ([#3](https://github.com/swarm-io/action-release-action/issues/3)) ([8ee9d46](https://github.com/swarm-io/action-release-action/commit/8ee9d46f7f933ba7c34bf71730689e18532c23b6))
+
 # 1.0.0 (2021-12-18)
 
 
