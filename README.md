@@ -1,6 +1,6 @@
 <!-- start title -->
 
-# GitHub Action: Generate Readme and Release Action
+# GitHub Action:Generate Readme and Release Action
 
 <!-- end title -->
 <!-- start description -->
