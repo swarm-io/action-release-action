@@ -18,7 +18,7 @@ runs:
       uses: cycjimmy/semantic-release-action@v2
       with:
         dry_run: true
-        extra_plugins: |
+        extends: |
           @swarm-io/release-config-actions
       env:
         # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
@@ -34,7 +34,7 @@ runs:
     - id: semantic-release
       uses: cycjimmy/semantic-release-action@v2
       with:
-        extra_plugins: |
+        extends: |
           @swarm-io/release-config-actions
       env:
         # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
