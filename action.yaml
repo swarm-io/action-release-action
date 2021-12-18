@@ -1,0 +1,90 @@
+name: Generate Readme and Release Action
+description: 'Builds an image, pushes to artifact registry, and caches to gha as well as the `cache` tag'
+inputs:
+  secrets:
+    description: 'docker build secrets, newline separated string key=value'
+    required: false
+    default: 'gitPat=${{ secrets.GIT_RUNNER_TOKEN }}'
+  tag-name:
+    description: 'tag name, i.e. `event-stream`'
+    required: false
+    default: '${{ github.event.repository.name }}'
+  tags:
+    description: git tags to push
+    required: false
+    default: '${{ secrets.GAR_IMAGES_REPO }}/${{ inputs.tag-name }}:${{ github.event.release.tag_name }} ${{ secrets.GAR_IMAGES_REPO }}/${{ inputs.tag-name }}:latest'
+  extra-plugins:
+    description: 'semantic-release extra plugins to install. If you override releaserc-json you may need additional plugins'
+    required: false
+    default: |
+      @semantic-release/exec
+      conventional-changelog-conventionalcommits
+      @semantic-release/changelog
+      @semantic-release/git
+  releaserc-json:
+    description: '.releaserc.json file in string form if you wan to override the default'
+    required: false
+    default: |
+      {
+        "branches": [
+          "main"
+        ],
+        "ci": false,
+        "plugins": [
+          ["@semantic-release/exec", {
+            "prepareCmd": "majorTag=v$(echo ${nextRelease.version} | grep -o '[^-]*$' | cut -d. -f1) && git tag -d $majorTag || true && git push -d origin $majorTag || true && git tag $majorTag"
+          }],
+          ["@semantic-release/commit-analyzer", {
+            "preset":  "conventionalcommits",
+            "releaseRules": [
+              {"scope": "no-release", "release": false}
+            ]
+          }],
+          "@semantic-release/release-notes-generator",
+          "@semantic-release/changelog",
+          ["@semantic-release/git", {
+            "assets": ["CHANGELOG.md", "README.md"],
+            "message": "semantic-release-bot chore(release): ${nextRelease.version} \n\n${nextRelease.notes}"
+          }],
+          "@semantic-release/github"
+        ]
+      }
+runs:
+  using: composite
+  steps:
+    - uses: crazy-max/ghaction-dump-context@v1
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        # this makes the semantic-release git plugin push as the runner, which allows us to bypass branch protection
+        token: ${{ secrets.GIT_RUNNER_TOKEN }}
+    - shell: bash
+      run: |
+        echo "${{ inputs.releaserc-json }}" >> .releaserc.json
+    - name: Dry run to get next version
+      id: semantic-release-dry-run
+      uses: cycjimmy/semantic-release-action@v2
+      with:
+        dry_run: true
+        extra_plugins: ${{ inputs.extra-plugins }}
+      env:
+        # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
+        GITHUB_TOKEN: ${{ secrets.GIT_RUNNER_TOKEN }}
+    - uses: bitflight-devops/github-action-readme-generator@v1.0.12a
+      with:
+        action: ${{ github.workspace }}/action.yaml
+        owner: ${{ github.repository_owner }}
+        repo: ${{ github.event.repository.name }}
+        pretty: true
+        versioning_enabled: true
+        version_override: v${{ steps.semantic-release-dry-run.outputs.new_release_major_version }}
+    - shell: bash
+      run: |
+
+    - id: semantic-release
+      uses: cycjimmy/semantic-release-action@v2
+      with:
+        extra_plugins: ${{ inputs.extra-plugins }}
+      env:
+        # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
+        GITHUB_TOKEN: ${{ secrets.GIT_RUNNER_TOKEN }}
