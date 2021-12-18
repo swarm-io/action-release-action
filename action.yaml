@@ -1,4 +1,4 @@
-name: Generate Readme and Release Action
+name: Generate Readme and Release Action #
 description: 'Builds an image, pushes to artifact registry, and caches to gha as well as the `cache` tag'
 inputs:
   token:
