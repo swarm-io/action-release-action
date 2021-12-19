@@ -18,6 +18,8 @@ runs:
       run: |
         echo "stuff" > derp1.txt
     - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        branch: main
     - name: Dry run to get next version
       id: semantic-release-dry-run
       uses: cycjimmy/semantic-release-action@v2
@@ -37,6 +39,8 @@ runs:
         versioning_enabled: true
         version_override: v${{ steps.semantic-release-dry-run.outputs.new_release_major_version }}
     - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        branch: main
     - id: semantic-release
       uses: cycjimmy/semantic-release-action@v2
       with:
