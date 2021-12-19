@@ -13,7 +13,11 @@ runs:
       with:
         # this makes the semantic-release git plugin push as the runner, which allows us to bypass branch protection
         token: ${{ inputs.token }}
-        persist-credentials: false
+    - name: Test credentials
+      shell: bash
+      run: |
+        echo "stuff" > derp1.txt
+    - uses: stefanzweifel/git-auto-commit-action@v4
     - name: Dry run to get next version
       id: semantic-release-dry-run
       uses: cycjimmy/semantic-release-action@v2
@@ -32,6 +36,7 @@ runs:
         pretty: true
         versioning_enabled: true
         version_override: v${{ steps.semantic-release-dry-run.outputs.new_release_major_version }}
+    - uses: stefanzweifel/git-auto-commit-action@v4
     - id: semantic-release
       uses: cycjimmy/semantic-release-action@v2
       with:
