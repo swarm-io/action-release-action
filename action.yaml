@@ -13,7 +13,7 @@ runs:
 #        token: ${{ inputs.token }}
     - shell: bash
       run: |
-        echo "stuff" > derp.txt
+        echo "stuff" >> derp.txt
     - uses: stefanzweifel/git-auto-commit-action@v4
 #    - name: Dry run to get next version
 #      id: semantic-release-dry-run
