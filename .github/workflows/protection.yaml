@@ -3,9 +3,8 @@ on:
   push:
     branches:
       - main-protection
-    paths:
-      - '.github/**'
-      - action.yaml
+    paths-ignore:
+      - derp.txt
 jobs:
   test-branch-protection:
     runs-on: ubuntu-latest
