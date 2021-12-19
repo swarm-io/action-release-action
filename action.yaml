@@ -7,42 +7,42 @@ inputs:
 runs:
   using: composite
   steps:
-#    - name: Checkout
-#      uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        token: ${{ inputs.token }}
+    - shell: bash
+      run: |
+        echo "stuff" >> derp.txt
+    - uses: stefanzweifel/git-auto-commit-action@v4
+#    - name: Dry run to get next version
+#      id: semantic-release-dry-run
+#      uses: cycjimmy/semantic-release-action@v2
 #      with:
-#        token: ${{ inputs.token }}
-    - shell: bash
-      run: |
-        echo "stuff" >> derp.txt
-    - uses: stefanzweifel/git-auto-commit-action@v4
-    - name: Dry run to get next version
-      id: semantic-release-dry-run
-      uses: cycjimmy/semantic-release-action@v2
-      with:
-        dry_run: true
-        extends: |
-          @swarm-io/release-config-actions
-    - shell: bash
-      run: |
-        echo "stuff" > derp.txt
-    - uses: stefanzweifel/git-auto-commit-action@v4
-    - uses: bitflight-devops/github-action-readme-generator@v1.0.12a
-      with:
-        action: ${{ github.workspace }}/action.yaml
-        owner: ${{ github.repository_owner }}
-        repo: ${{ github.event.repository.name }}
-        pretty: true
-        versioning_enabled: true
-        version_override: v${{ steps.semantic-release-dry-run.outputs.new_release_major_version }}
-    - shell: bash
-      run: |
-        echo "stuff" >> derp.txt
-    - uses: stefanzweifel/git-auto-commit-action@v4
-    - id: semantic-release
-      uses: cycjimmy/semantic-release-action@v2
-      with:
-        extends: |
-          @swarm-io/release-config-actions
+#        dry_run: true
+#        extends: |
+#          @swarm-io/release-config-actions
+#    - shell: bash
+#      run: |
+#        echo "stuff" > derp.txt
+#    - uses: stefanzweifel/git-auto-commit-action@v4
+#    - uses: bitflight-devops/github-action-readme-generator@v1.0.12a
+#      with:
+#        action: ${{ github.workspace }}/action.yaml
+#        owner: ${{ github.repository_owner }}
+#        repo: ${{ github.event.repository.name }}
+#        pretty: true
+#        versioning_enabled: true
+#        version_override: v${{ steps.semantic-release-dry-run.outputs.new_release_major_version }}
+#    - shell: bash
+#      run: |
+#        echo "stuff" >> derp.txt
+#    - uses: stefanzweifel/git-auto-commit-action@v4
+#    - id: semantic-release
+#      uses: cycjimmy/semantic-release-action@v2
+#      with:
+#        extends: |
+#          @swarm-io/release-config-actions
 #      env:
 #        # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
 #        GITHUB_TOKEN: ${{ inputs.token }}
