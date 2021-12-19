@@ -7,6 +7,20 @@ inputs:
 runs:
   using: composite
   steps:
+    - shell: bash
+      run: |
+        if [ "GITHUB_TOKEN" = "${{ github.token }}" ]; then
+            echo "GITHUB_TOKEN and ${{ github.token }} are equal"
+        else
+            echo "GITHUB_TOKEN and ${{ github.token }} are not equal"
+        fi
+    - shell: bash
+      run: |
+        if [ "GITHUB_TOKEN" = "${{ inputs.token }}" ]; then
+            echo "GITHUB_TOKEN and input token are equal"
+        else
+            echo "GITHUB_TOKEN and input token are not equal"
+        fi
     - name: Test credentials
       shell: bash
       run: |
