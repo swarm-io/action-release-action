@@ -22,6 +22,8 @@ runs:
     - name: Dry run to get next version
       id: semantic-release-dry-run
       uses: cycjimmy/semantic-release-action@v2
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
       with:
         dry_run: true
         extends: ${{ inputs.release-config }}
@@ -40,6 +42,8 @@ runs:
         include-admins: false
     - id: semantic-release
       uses: cycjimmy/semantic-release-action@v2
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
       with:
         extends: ${{ inputs.release-config }}
     - uses: swarm-io/action-branch-protection-bot@v1
