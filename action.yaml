@@ -3,7 +3,8 @@ description: 'Builds an image, pushes to artifact registry, and caches to gha as
 inputs:
   token:
     description: 'git token to use for the run'
-    required: true
+    required: false
+    default: "derp"
 runs:
   using: composite
   steps:
