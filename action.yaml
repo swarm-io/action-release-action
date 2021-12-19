@@ -13,6 +13,7 @@ runs:
       with:
         # this makes the semantic-release git plugin push as the runner, which allows us to bypass branch protection
         token: ${{ inputs.token }}
+        persist-credentials: false
     - name: Dry run to get next version
       id: semantic-release-dry-run
       uses: cycjimmy/semantic-release-action@v2
