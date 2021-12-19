@@ -8,11 +8,6 @@ runs:
   using: composite
   steps:
     - uses: crazy-max/ghaction-dump-context@v1
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        # this makes the semantic-release git plugin push as the runner, which allows us to bypass branch protection
-        token: ${{ inputs.token }}
     - name: Test credentials
       shell: bash
       run: |
