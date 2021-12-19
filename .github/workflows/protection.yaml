@@ -1,0 +1,17 @@
+name: Test branch protection
+on:
+  push:
+    branches:
+      - main-protection
+jobs:
+  semantic-release:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GIT_RUNNER_TOKEN }}
+      - run: |
+          echo "stuff" > derp.txt
+      - uses: stefanzweifel/git-auto-commit-action@v4
