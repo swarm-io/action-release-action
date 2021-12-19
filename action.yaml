@@ -9,15 +9,15 @@ runs:
   steps:
     - shell: bash
       run: |
-        if [ "GITHUB_TOKEN" = "${{ github.token }}" ]; then
-            echo "GITHUB_TOKEN and ${{ github.token }} are equal"
+        if [ "$GITHUB_TOKEN" = "${{ github.token }}" ]; then
+            echo "$GITHUB_TOKEN and ${{ github.token }} are equal"
         else
-            echo "GITHUB_TOKEN and ${{ github.token }} are not equal"
+            echo "$GITHUB_TOKEN and ${{ github.token }} are not equal"
         fi
     - shell: bash
       run: |
-        if [ "GITHUB_TOKEN" = "${{ inputs.token }}" ]; then
-            echo "GITHUB_TOKEN and input token are equal"
+        if [ "$GITHUB_TOKEN" = "${{ inputs.token }}" ]; then
+            echo "$GITHUB_TOKEN and input token are equal"
         else
             echo "GITHUB_TOKEN and input token are not equal"
         fi
