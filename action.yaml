@@ -3,35 +3,18 @@ description: 'Builds an image, pushes to artifact registry, and caches to gha as
 inputs:
   token:
     description: 'git token to use for the run'
-    required: false
-    default: "derp"
+    required: true
 runs:
   using: composite
   steps:
-    - shell: bash
-      run: |
-        echo "${{ inputs.token }} is: ${{ inputs.token }}"
-    - shell: bash
-      run: |
-        if [ "$GITHUB_TOKEN" = "${{ github.token }}" ]; then
-            echo "$GITHUB_TOKEN and ${{ github.token }} are equal"
-        else
-            echo "$GITHUB_TOKEN and ${{ github.token }} are not equal"
-        fi
-    - shell: bash
-      run: |
-        if [ "$GITHUB_TOKEN" = "${{ inputs.token }}" ]; then
-            echo "$GITHUB_TOKEN and input token are equal"
-        else
-            echo "GITHUB_TOKEN and input token are not equal"
-        fi
-    - name: Test credentials
-      shell: bash
-      run: |
-        echo "stuff" > derp1.txt
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - name: Checkout
+      uses: actions/checkout@v2
       with:
-        branch: main
+        token: ${{ inputs.token }}
+    - shell: bash
+      run: |
+        echo "stuff" > derp.txt
+    - uses: stefanzweifel/git-auto-commit-action@v4
 #    - name: Dry run to get next version
 #      id: semantic-release-dry-run
 #      uses: cycjimmy/semantic-release-action@v2
