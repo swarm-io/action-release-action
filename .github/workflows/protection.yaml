@@ -5,6 +5,7 @@ on:
       - main-protection
     paths:
       - '.github/**'
+      - action.yaml
 jobs:
   test-branch-protection:
     runs-on: ubuntu-latest

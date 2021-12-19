@@ -46,5 +46,5 @@ runs:
 #        extends: |
 #          @swarm-io/release-config-actions
 #      env:
-#        # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
+#         github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
 #        GITHUB_TOKEN: ${{ inputs.token }}
