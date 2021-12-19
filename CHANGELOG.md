@@ -1,3 +1,14 @@
+## [1.0.3](https://github.com/swarm-io/action-release-action/compare/v1.0.2...v1.0.3) (2021-12-19)
+
+
+### Bug Fixes
+
+* Add GITHUB_TOKEN to release steps ([#9](https://github.com/swarm-io/action-release-action/issues/9)) ([b9182ef](https://github.com/swarm-io/action-release-action/commit/b9182ef26a01c70e42e1503075c7874cfe62a9ca))
+* Add input to toggle enable admins, added input for release config ([#8](https://github.com/swarm-io/action-release-action/issues/8)) ([1d9c44b](https://github.com/swarm-io/action-release-action/commit/1d9c44bf9a7e0748091125eea7bc72dcd3f9d9f4))
+* Main test ([#7](https://github.com/swarm-io/action-release-action/issues/7)) ([b0e4dbb](https://github.com/swarm-io/action-release-action/commit/b0e4dbb435b7f2d9be41b95711caebbd31b156c2))
+* test with branch protection ([#5](https://github.com/swarm-io/action-release-action/issues/5)) ([f3f4060](https://github.com/swarm-io/action-release-action/commit/f3f40602fe998296bee10c74573271ce3d6543f3))
+* testing workflow ([#6](https://github.com/swarm-io/action-release-action/issues/6)) ([97878d1](https://github.com/swarm-io/action-release-action/commit/97878d11088bae61e7a171a81576effa156ebd13))
+
 ## [1.0.2](https://github.com/swarm-io/action-release-action/compare/v1.0.1...v1.0.2) (2021-12-18)
 
 
