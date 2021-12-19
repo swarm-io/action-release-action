@@ -20,13 +20,13 @@ runs:
       run: |
         echo "stuff" >> derp.txt
     - uses: swarm-io/action-branch-protection-bot@init
-      if: inputs.toggle-admins
+      if: inputs.toggle-admins == 'true'
       with:
         token: ${{ inputs.token }}
         include-admins: 'false'
     - uses: stefanzweifel/git-auto-commit-action@v4
     - uses: swarm-io/action-branch-protection-bot@init
-      if: inputs.toggle-admins && always()  # Force to always run this step to ensure "include administrators" is always turned back on
+      if: inputs.toggle-admins == 'true' && always()  # Force to always run this step to ensure "include administrators" is always turned back on
       with:
         token: ${{ inputs.token }}
         include-admins: 'true'
