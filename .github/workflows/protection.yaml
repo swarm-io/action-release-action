@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main-protection
+    paths:
+      - '.github/**'
 jobs:
   test-branch-protection:
     runs-on: ubuntu-latest

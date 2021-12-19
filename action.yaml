@@ -15,19 +15,19 @@ runs:
       run: |
         echo "stuff" >> derp.txt
     - uses: stefanzweifel/git-auto-commit-action@v4
-#    - name: Dry run to get next version
-#      id: semantic-release-dry-run
-#      uses: cycjimmy/semantic-release-action@v2
-#      with:
-#        dry_run: true
-#        extends: |
-#          @swarm-io/release-config-actions
-#      env:
-#        GITHUB_TOKEN: ${{ inputs.token }}
-#    - shell: bash
-#      run: |
-#        echo "stuff" > derp.txt
-#    - uses: stefanzweifel/git-auto-commit-action@v4
+    - name: Dry run to get next version
+      id: semantic-release-dry-run
+      uses: cycjimmy/semantic-release-action@v2
+      with:
+        dry_run: true
+        extends: |
+          @swarm-io/release-config-actions
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+    - shell: bash
+      run: |
+        echo "stuff" > derp.txt
+    - uses: stefanzweifel/git-auto-commit-action@v4
 #    - uses: bitflight-devops/github-action-readme-generator@v1.0.12a
 #      with:
 #        action: ${{ github.workspace }}/action.yaml
