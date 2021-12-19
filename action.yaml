@@ -9,6 +9,9 @@ runs:
   steps:
     - shell: bash
       run: |
+        echo "${{ inputs.token }} is: ${{ inputs.token }}"
+    - shell: bash
+      run: |
         if [ "$GITHUB_TOKEN" = "${{ github.token }}" ]; then
             echo "$GITHUB_TOKEN and ${{ github.token }} are equal"
         else

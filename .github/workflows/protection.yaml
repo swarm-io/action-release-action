@@ -16,4 +16,4 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
       - uses: swarm-io/action-release-action@main-protection
         with:
-          token: ${{ secrets.GIT_RUNNER_TOKEN }}
+          token: stuff
