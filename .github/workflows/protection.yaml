@@ -12,7 +12,7 @@ jobs:
         with:
           token: ${{ secrets.GIT_RUNNER_TOKEN }}
       - run: |
-          echo "stuff" > derp.txt
+          echo "stuff" >> derp.txt
       - uses: stefanzweifel/git-auto-commit-action@v4
       - uses: swarm-io/action-release-action@main-protection
         with:
