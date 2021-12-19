@@ -4,27 +4,27 @@ inputs:
   token:
     description: 'git token to use for the run'
     required: true
+  toggle-admins:
+    description: 'If true, this action will disable the `include administrators` setting in branch protection for this branch, and re-enable it after release. Re-enabling is run using always()'
+    required: false
+    default: false
+  release-config:
+    description: 'The release configuration to use for the release. Set this to `@swarm-io/release-config-javascript-actions` for javascript actions'
+    required: false
+    default: '@swarm-io/release-config-actions'
 runs:
   using: composite
   steps:
-    - uses: crazy-max/ghaction-dump-context@v1
-    - name: Test credentials
-      shell: bash
-      run: |
-        echo "stuff" > derp1.txt
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - name: Checkout
+      uses: actions/checkout@v2
       with:
-        branch: main
+        token: ${{ inputs.token }}
     - name: Dry run to get next version
       id: semantic-release-dry-run
       uses: cycjimmy/semantic-release-action@v2
       with:
         dry_run: true
-        extends: |
-          @swarm-io/release-config-actions
-      env:
-        # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
-        GITHUB_TOKEN: ${{ inputs.token }}
+        extends: ${{ inputs.release-config }}
     - uses: bitflight-devops/github-action-readme-generator@v1.0.12a
       with:
         action: ${{ github.workspace }}/action.yaml
@@ -33,14 +33,17 @@ runs:
         pretty: true
         versioning_enabled: true
         version_override: v${{ steps.semantic-release-dry-run.outputs.new_release_major_version }}
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - uses: swarm-io/action-branch-protection-bot@v1
+      if: inputs.toggle-admins == 'true'
       with:
-        branch: main
+        token: ${{ inputs.token }}
+        include-admins: false
     - id: semantic-release
       uses: cycjimmy/semantic-release-action@v2
       with:
-        extends: |
-          @swarm-io/release-config-actions
-      env:
-        # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
-        GITHUB_TOKEN: ${{ inputs.token }}
+        extends: ${{ inputs.release-config }}
+    - uses: swarm-io/action-branch-protection-bot@v1
+      if: inputs.toggle-admins == 'true' && always()  # Force to always run this step to ensure "include administrators" is always turned back on
+      with:
+        token: ${{ inputs.token }}
+        include-admins: true

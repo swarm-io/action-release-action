@@ -30,7 +30,9 @@ Builds an image, pushes to artifact registry, and caches to gha as well as the `
 <!-- start outputs -->
 <!-- end outputs -->
 <!-- start examples -->
-### Example usage to release on PR merge to main
+
+### Example usage to release on PR merge to main with branch protection enabled
+
 ```yaml
 name: Semantic Release
 on:
@@ -49,7 +51,9 @@ jobs:
       - uses: swarm-io/action-release-action@v1
         with:
           token: ${{ secrets.GIT_RUNNER_TOKEN }}
+          toggle-admins: true
 ```
+
 <!-- end examples -->
 <!-- start [.github/ghdocs/examples/] -->
 <!-- end [.github/ghdocs/examples/] -->
