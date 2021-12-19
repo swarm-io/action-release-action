@@ -20,4 +20,4 @@ jobs:
       - uses: swarm-io/action-release-action@main-protection
         with:
           token: ${{ secrets.GIT_RUNNER_TOKEN }}
-          toggle-admins: 'false'
+          toggle-admins: 'true'
