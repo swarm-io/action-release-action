@@ -7,7 +7,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: crazy-max/ghaction-dump-context@v1
     - name: Test credentials
       shell: bash
       run: |
@@ -15,32 +14,32 @@ runs:
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         branch: main
-    - name: Dry run to get next version
-      id: semantic-release-dry-run
-      uses: cycjimmy/semantic-release-action@v2
-      with:
-        dry_run: true
-        extends: |
-          @swarm-io/release-config-actions
-      env:
-        # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
-        GITHUB_TOKEN: ${{ inputs.token }}
-    - uses: bitflight-devops/github-action-readme-generator@v1.0.12a
-      with:
-        action: ${{ github.workspace }}/action.yaml
-        owner: ${{ github.repository_owner }}
-        repo: ${{ github.event.repository.name }}
-        pretty: true
-        versioning_enabled: true
-        version_override: v${{ steps.semantic-release-dry-run.outputs.new_release_major_version }}
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        branch: main
-    - id: semantic-release
-      uses: cycjimmy/semantic-release-action@v2
-      with:
-        extends: |
-          @swarm-io/release-config-actions
-      env:
-        # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
-        GITHUB_TOKEN: ${{ inputs.token }}
+#    - name: Dry run to get next version
+#      id: semantic-release-dry-run
+#      uses: cycjimmy/semantic-release-action@v2
+#      with:
+#        dry_run: true
+#        extends: |
+#          @swarm-io/release-config-actions
+#      env:
+#        # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
+#        GITHUB_TOKEN: ${{ inputs.token }}
+#    - uses: bitflight-devops/github-action-readme-generator@v1.0.12a
+#      with:
+#        action: ${{ github.workspace }}/action.yaml
+#        owner: ${{ github.repository_owner }}
+#        repo: ${{ github.event.repository.name }}
+#        pretty: true
+#        versioning_enabled: true
+#        version_override: v${{ steps.semantic-release-dry-run.outputs.new_release_major_version }}
+#    - uses: stefanzweifel/git-auto-commit-action@v4
+#      with:
+#        branch: main
+#    - id: semantic-release
+#      uses: cycjimmy/semantic-release-action@v2
+#      with:
+#        extends: |
+#          @swarm-io/release-config-actions
+#      env:
+#        # github.token can't trigger workflows, we want the created release to trigger other workflows, so use the runner token
+#        GITHUB_TOKEN: ${{ inputs.token }}
