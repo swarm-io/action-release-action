@@ -11,6 +11,7 @@ inputs:
 runs:
   using: composite
   steps:
+    - uses: crazy-max/ghaction-dump-context@v1
     - name: Checkout
       uses: actions/checkout@v2
       with:
