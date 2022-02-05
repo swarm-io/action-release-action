@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/swarm-io/action-release-action/compare/v1.0.3...v1.0.4) (2022-02-05)
+
+
+### Bug Fixes
+
+* New version of semantic release is bugging out. Pin the version ([#10](https://github.com/swarm-io/action-release-action/issues/10)) ([1c30775](https://github.com/swarm-io/action-release-action/commit/1c30775dc340031c9a0996fe60793a39f0192c1b))
+
 ## [1.0.3](https://github.com/swarm-io/action-release-action/compare/v1.0.2...v1.0.3) (2021-12-19)
 
 
